@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'models/post_model.dart';
+import '../models/post_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
