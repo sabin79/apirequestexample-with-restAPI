@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
+      postList.clear();
       for (Map<String, dynamic> i in data) {
         postList.add(PostModel.fromJson(i));
       }
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Api Call with Rest API"),
+        backgroundColor: Colors.blueAccent.shade100,
         centerTitle: true,
         elevation: 0.0,
       ),
@@ -43,7 +45,16 @@ class _HomePageState extends State<HomePage> {
                 future: getPostApi(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return const Text("Loading");
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.blueAccent,
+                        strokeWidth: 5,
+                        semanticsLabel: "Loading",
+                        semanticsValue: "Loading",
+                        backgroundColor: Colors.blueAccent,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    );
                   } else {
                     return ListView.builder(
                         itemCount: postList.length,
